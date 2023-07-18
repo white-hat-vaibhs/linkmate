@@ -10,25 +10,23 @@ export default function Homepage() {
       const { user } = data;
       setUser(user);
 
-      const { data: authListner } = supabase.auth.onAuthStateChange(
-        (event, session) => {
-          switch (event) {
-            case "SIGNED_IN":
-              setUser(session.user);
-              break;
-            case "SIGNED_OUT":
-              setUser(null);
-              break;
-            default:
-          }
-          console.log(user);
+      const authListener = supabase.auth.onAuthStateChange((event, session) => {
+        switch (event) {
+          case "SIGNED_IN":
+            setUser(session.user);
+            break;
+          case "SIGNED_OUT":
+            setUser(null);
+            break;
+          default:
+            break;
         }
-      );
+      });
+
       return () => {
-        authListner.unsubscribe();
+        supabase.removeSubscription(authListener);
       };
     };
-
     fetchSession();
   }, []);
 

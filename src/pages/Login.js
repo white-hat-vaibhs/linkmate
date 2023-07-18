@@ -13,24 +13,24 @@ export default function Homepage() {
       const { user } = data;
       setUser(user);
 
-      const { data: authListner } = supabase.auth.onAuthStateChange(
-        (event, session) => {
-          switch (event) {
-            case "SIGNED_IN":
-              setUser(session.user);
-              break;
-            case "SIGNED_OUT":
-              setUser(null);
-              break;
-            default:
-          }
+      const authListener = supabase.auth.onAuthStateChange((event, session) => {
+        switch (event) {
+          case "SIGNED_IN":
+            setUser(session.user);
+            break;
+          case "SIGNED_OUT":
+            setUser(null);
+            break;
+          default:
+            break;
         }
-      );
+      });
+      console.log(user)
+
       return () => {
-        authListner.unsubscribe();
+        supabase.removeSubscription(authListener);
       };
     };
-
     fetchSession();
   }, []);
 

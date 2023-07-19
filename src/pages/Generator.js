@@ -1,4 +1,4 @@
-import QRCode from "react-qr-code";
+import { QRCode } from "react-qrcode-logo";
 import React, { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/helper/supabaseClient";
 import { toSvg } from "html-to-image";
@@ -71,8 +71,29 @@ export default function Generator() {
                 <p className="mt-2 text-lg leading-8 text-gray-600">
                   {link.link}
                 </p>
+
                 <div ref={(ref) => setQrCodeRef(link.id, ref)}>
-                  <QRCode value={link.link} />
+                  {/* <QRCode value={link.link} /> */}
+                  <QRCode
+                    value={link.link}
+                    logoImage="https://npstoday.blob.core.windows.net/images/b1d0cd86-5f9c-420f-8d7e-3064dd0cd20c/adc5424d-f0e7-4bc2-a43b-9304cc17f4cc_wide.png"
+                    logoWidth="90"
+                    logoHeight="20"
+                    size="200"
+                    removeQrCodeBehindLogo
+                    eyeColor="#000"
+                    qrStyle="dots"
+                    ecLevel="H"
+                    eyeRadius={[
+                      {
+                        // top/left eye
+                        outer: [15, 15, 0, 15],
+                        inner: [15, 15, 0, 15]
+                      },
+                      [15, 15, 15, 0], // top/right eye
+                      [15, 0, 15, 15] // bottom/left
+                    ]}
+                  />
                 </div>
                 <button
                   onClick={() => handleDownloadQRCode(link)}

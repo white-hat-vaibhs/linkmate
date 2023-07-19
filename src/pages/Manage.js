@@ -151,6 +151,17 @@ const Manage = () => {
               />
             </div>
             <div>
+              <label htmlFor="logo" className="block text-sm font-medium text-gray-700">
+              Logo
+            </label>
+            <input
+              type="file"
+              name="logo"
+              id="logo"
+              accept="image/*"
+              // onChange={handleLogoUpload}
+              className="mt-1 mb-2 p-2 border border-gray-300 rounded-md"
+            />
               <label
                 htmlFor="title"
                 className="block text-sm font-medium text-gray-700"
